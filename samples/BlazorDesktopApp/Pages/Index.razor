@@ -2,4 +2,31 @@
 
 <h1>Hello, world!</h1>
 
-Welcome to your new app.
+<p>Welcome to your new app.</p>
+
+<textarea @bind-value="@NewMessage"
+          @bind-value:event="oninput"
+          @onkeydown="Shortcuts"
+          placeholder="Ctrl-Enter to send..." />
+
+@code
+{
+    public string NewMessage { get; set; }
+
+
+    internal async Task Shortcuts(KeyboardEventArgs args)
+    {
+        if (args.CtrlKey)
+        {
+            switch (args.Key)
+            {
+                case "Enter":
+                case "Return":
+                    Console.WriteLine($"Enter pressed. Value of NewMessage: {NewMessage}");
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+}
